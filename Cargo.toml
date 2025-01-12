@@ -1,14 +1,14 @@
 [package]
-name = "path-utils"
+name = "pathkit"
 version = "0.1.0"
 edition = "2021"
 
 authors = ["kiki-kanri"]
 categories = ["filesystem", "utilities"]
-description = "A path struct representing a file system path with various utility methods for path operations."
+description = "A comprehensive toolkit for path and filesystem operations in Rust."
 keywords = ["filesystem", "path", "utils"]
 license = "MIT"
 readme = "README.md"
-repository = "https://github.com/kiki-kanri/rust-path-utils"
+repository = "https://github.com/kiki-kanri/rust-pathkit"
 
 [dependencies]
