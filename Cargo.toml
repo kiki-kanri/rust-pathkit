@@ -1,0 +1,14 @@
+[package]
+name = "path-utils"
+version = "0.1.0"
+edition = "2021"
+
+authors = ["kiki-kanri"]
+categories = ["filesystem", "utilities"]
+description = "A path struct representing a file system path with various utility methods for path operations."
+keywords = ["filesystem", "path", "utils"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/kiki-kanri/rust-path-utils"
+
+[dependencies]
