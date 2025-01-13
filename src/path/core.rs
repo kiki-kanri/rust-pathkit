@@ -19,6 +19,10 @@ impl Path {
         };
     }
 
+    pub fn parent(&self) -> Option<Self> {
+        self.path.parent().map(|p| Path::new(p))
+    }
+
     pub fn to_str(&self) -> Option<&str> {
         return self.path.to_str();
     }
