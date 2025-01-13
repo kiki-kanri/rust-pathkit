@@ -1,27 +1,7 @@
-use std::borrow::Cow;
 use std::fmt::{Display, Formatter};
-use std::path::{Path as StdPath, PathBuf};
+use std::path::Path as StdPath;
 
-#[derive(Debug)]
-pub struct Path {
-    path: PathBuf,
-}
-
-impl Path {
-    pub fn new(path: impl AsRef<StdPath>) -> Self {
-        return Path {
-            path: path.as_ref().to_path_buf(),
-        };
-    }
-
-    pub fn to_str(&self) -> Option<&str> {
-        return self.path.to_str();
-    }
-
-    pub fn to_string_lossy(&self) -> Cow<'_, str> {
-        return self.path.to_string_lossy();
-    }
-}
+use super::core::Path;
 
 impl AsRef<StdPath> for Path {
     fn as_ref(&self) -> &StdPath {
