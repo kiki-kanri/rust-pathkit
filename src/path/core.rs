@@ -1,3 +1,4 @@
+use anyhow::Result;
 use std::borrow::Cow;
 use std::path::{Path as StdPath, PathBuf};
 
@@ -11,6 +12,10 @@ impl Path {
         Path {
             path: path.as_ref().to_path_buf(),
         }
+    }
+
+    pub fn canonicalize(&self) -> Result<Self, std::io::Error> {
+        std::fs::canonicalize(&self.path).map(Self::new)
     }
 
     pub fn join(&self, path: impl AsRef<StdPath>) -> Path {
