@@ -13,6 +13,12 @@ impl Path {
         };
     }
 
+    pub fn join(&self, path: impl AsRef<StdPath>) -> Path {
+        return Path {
+            path: self.path.join(path),
+        };
+    }
+
     pub fn to_str(&self) -> Option<&str> {
         return self.path.to_str();
     }
