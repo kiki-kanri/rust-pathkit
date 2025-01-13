@@ -8,15 +8,15 @@ pub struct Path {
 
 impl Path {
     pub fn new(path: impl AsRef<StdPath>) -> Self {
-        return Path {
+        Path {
             path: path.as_ref().to_path_buf(),
-        };
+        }
     }
 
     pub fn join(&self, path: impl AsRef<StdPath>) -> Path {
-        return Path {
+        Path {
             path: self.path.join(path),
-        };
+        }
     }
 
     pub fn parent(&self) -> Option<Self> {
@@ -24,10 +24,10 @@ impl Path {
     }
 
     pub fn to_str(&self) -> Option<&str> {
-        return self.path.to_str();
+        self.path.to_str()
     }
 
     pub fn to_string_lossy(&self) -> Cow<'_, str> {
-        return self.path.to_string_lossy();
+        self.path.to_string_lossy()
     }
 }
