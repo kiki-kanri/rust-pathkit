@@ -1,3 +1,3 @@
-pub mod path;
+mod path;
 
 pub use path::Path;
