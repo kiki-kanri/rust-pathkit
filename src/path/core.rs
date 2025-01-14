@@ -1,6 +1,7 @@
 use anyhow::Result;
 use path_absolutize::Absolutize;
 use std::borrow::Cow;
+use std::ffi::OsStr;
 use std::path::{Path as StdPath, PathBuf};
 
 #[derive(Debug)]
@@ -29,6 +30,22 @@ impl Path {
 
     pub fn canonicalize(&self) -> Result<Self, std::io::Error> {
         std::fs::canonicalize(&self.path).map(Self::new)
+    }
+
+    pub fn extension(&self) -> Option<&OsStr> {
+        self.path.extension()
+    }
+
+    pub fn file_name(&self) -> Option<&OsStr> {
+        self.path.file_name()
+    }
+
+    pub fn file_stem(&self) -> Option<&OsStr> {
+        self.path.file_stem()
+    }
+
+    pub fn is_absolute(&self) -> bool {
+        self.path.is_absolute()
     }
 
     pub fn join(&self, path: impl AsRef<StdPath>) -> Self {
