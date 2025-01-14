@@ -1,4 +1,5 @@
 use anyhow::Result;
+use path_absolutize::Absolutize;
 use std::borrow::Cow;
 use std::path::{Path as StdPath, PathBuf};
 
@@ -12,6 +13,18 @@ impl Path {
         Path {
             path: path.as_ref().to_path_buf(),
         }
+    }
+
+    pub fn absolutize(&self) -> Result<Self> {
+        Ok(Self::new(self.path.absolutize()?))
+    }
+
+    pub fn absolutize_from(&self, cwd: impl AsRef<StdPath>) -> Result<Self> {
+        Ok(Self::new(self.path.absolutize_from(cwd)?))
+    }
+
+    pub fn absolutize_virtually(&self, virtual_root: impl AsRef<StdPath>) -> Result<Self> {
+        Ok(Self::new(self.path.absolutize_virtually(virtual_root)?))
     }
 
     pub fn canonicalize(&self) -> Result<Self, std::io::Error> {
