@@ -19,7 +19,7 @@ impl Clone for Path {
 
 impl Display for Path {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{}", self.path.to_string_lossy())
+        write!(f, "{}", self.to_string_lossy())
     }
 }
 

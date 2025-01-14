@@ -18,14 +18,12 @@ impl Path {
         std::fs::canonicalize(&self.path).map(Self::new)
     }
 
-    pub fn join(&self, path: impl AsRef<StdPath>) -> Path {
-        Path {
-            path: self.path.join(path),
-        }
+    pub fn join(&self, path: impl AsRef<StdPath>) -> Self {
+        Self::new(self.path.join(path))
     }
 
     pub fn parent(&self) -> Option<Self> {
-        self.path.parent().map(|p| Path::new(p))
+        self.path.parent().map(Self::new)
     }
 
     pub fn to_str(&self) -> Option<&str> {
