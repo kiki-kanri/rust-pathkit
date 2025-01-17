@@ -1,3 +1,5 @@
-mod path;
+mod core;
+mod div;
+mod traits;
 
-pub use path::Path;
+pub use core::Path;
