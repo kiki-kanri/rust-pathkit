@@ -6,7 +6,7 @@ impl Div<&str> for Path {
     type Output = Path;
 
     fn div(self, rhs: &str) -> Self::Output {
-        self.join(rhs)
+        return self.join(rhs);
     }
 }
 
@@ -14,7 +14,7 @@ impl Div<&str> for &Path {
     type Output = Path;
 
     fn div(self, rhs: &str) -> Self::Output {
-        self.join(rhs)
+        return self.join(rhs);
     }
 }
 
@@ -22,7 +22,7 @@ impl Div<Path> for Path {
     type Output = Path;
 
     fn div(self, rhs: Path) -> Self::Output {
-        self.join(rhs.as_ref())
+        return self.join(rhs.as_ref());
     }
 }
 
@@ -30,7 +30,7 @@ impl Div<&Path> for Path {
     type Output = Path;
 
     fn div(self, rhs: &Path) -> Self::Output {
-        self.join(rhs.as_ref())
+        return self.join(rhs.as_ref());
     }
 }
 
@@ -38,7 +38,7 @@ impl Div<Path> for &Path {
     type Output = Path;
 
     fn div(self, rhs: Path) -> Self::Output {
-        self.join(rhs.as_ref())
+        return self.join(rhs.as_ref());
     }
 }
 
@@ -46,6 +46,6 @@ impl Div<&Path> for &Path {
     type Output = Path;
 
     fn div(self, rhs: &Path) -> Self::Output {
-        self.join(rhs.as_ref())
+        return self.join(rhs.as_ref());
     }
 }
