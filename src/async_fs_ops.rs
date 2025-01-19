@@ -1,8 +1,9 @@
-use anyhow::{anyhow, Result};
+use anyhow::Result;
 use tokio::fs;
 
 use super::core::Path;
 
+#[async_trait::async_trait]
 pub trait AsyncFsOps {
     async fn exists(&self) -> Result<bool>;
     async fn mkdir(&self) -> Result<()>;
@@ -10,19 +11,18 @@ pub trait AsyncFsOps {
     async fn mkdirs(&self) -> Result<()>;
 }
 
+#[async_trait::async_trait]
 impl AsyncFsOps for Path {
     async fn exists(&self) -> Result<bool> {
-        return fs::try_exists(self).await;
+        return Ok(fs::try_exists(self).await?);
     }
 
     async fn mkdir(&self) -> Result<()> {
-        fs::create_dir(self).await?;
-        return Ok(());
+        return Ok(fs::create_dir(self).await?);
     }
 
     async fn mkdirp(&self) -> Result<()> {
-        fs::create_dir_all(self).await?;
-        return Ok(());
+        return Ok(fs::create_dir_all(self).await?);
     }
 
     async fn mkdirs(&self) -> Result<()> {
