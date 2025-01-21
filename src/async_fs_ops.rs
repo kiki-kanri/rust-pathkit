@@ -8,6 +8,8 @@ use super::core::Path;
 pub trait AsyncFsOps {
     #[cfg(unix)]
     async fn chmod(&self, mode: u32) -> Result<()>;
+    #[cfg(unix)]
+    async fn chown(&self, uid: Option<u32>, gid: Option<u32>) -> Result<()>;
     async fn exists(&self) -> Result<bool>;
     async fn mkdir(&self) -> Result<()>;
     async fn mkdirp(&self) -> Result<()>;
@@ -21,6 +23,14 @@ impl AsyncFsOps for Path {
     async fn chmod(&self, mode: u32) -> Result<()> {
         use std::os::unix::fs::PermissionsExt;
         return Ok(fs::set_permissions(self, Permissions::from_mode(mode)).await?);
+    }
+
+    #[cfg(unix)]
+    async fn chown(&self, uid: Option<u32>, gid: Option<u32>) -> Result<()> {
+        let path = self.path.clone();
+        return Ok(
+            tokio::task::spawn_blocking(move || std::os::unix::fs::chown(path, uid, gid)).await??,
+        );
     }
 
     async fn exists(&self) -> Result<bool> {
