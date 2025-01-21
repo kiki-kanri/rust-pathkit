@@ -1,5 +1,44 @@
 # Changelog
 
+## v0.4.0
+
+[compare changes](https://github.com/kiki-kanri/rust-pathkit/compare/v0.3.0...v0.4.0)
+
+### 🚀 Enhancements
+
+- Add `chmod` and `set_permissions` methods to `AsyncFsOps` ([4842f83](https://github.com/kiki-kanri/rust-pathkit/commit/4842f83))
+- Add `chown` methods to `AsyncFsOps` ([e2b651f](https://github.com/kiki-kanri/rust-pathkit/commit/e2b651f))
+- Add `rmdir` and `truncate` methods to `AsyncFsOps` ([9f279e7](https://github.com/kiki-kanri/rust-pathkit/commit/9f279e7))
+- Add methods to `AsyncFsOps` implementation for checking path types (file, fifo, dir, etc.) ([2d2344e](https://github.com/kiki-kanri/rust-pathkit/commit/2d2344e))
+
+### 🩹 Fixes
+
+- Correct incorrect '.release.toml' file name ([e57cd7b](https://github.com/kiki-kanri/rust-pathkit/commit/e57cd7b))
+
+### 💅 Refactors
+
+- Modify `chmod` operation to exclude compilation on non-Unix systems ([bb34ad9](https://github.com/kiki-kanri/rust-pathkit/commit/bb34ad9))
+- ⚠️ Remove `mkdirs` method from `AsyncFsOps` ([30f8a89](https://github.com/kiki-kanri/rust-pathkit/commit/30f8a89))
+
+### 🏡 Chore
+
+- Add nodejs config to `.gitignore` ([dc01dfb](https://github.com/kiki-kanri/rust-pathkit/commit/dc01dfb))
+- Add tool to generate changelog and modify `.release.toml` ([66fe864](https://github.com/kiki-kanri/rust-pathkit/commit/66fe864))
+- Add `CHANGELOG.md` ([c84ac9a](https://github.com/kiki-kanri/rust-pathkit/commit/c84ac9a))
+- Modify `description` field in `Cargo.toml` ([f08a3f0](https://github.com/kiki-kanri/rust-pathkit/commit/f08a3f0))
+- Add `modify-files-permissions.sh` script ([57a5a51](https://github.com/kiki-kanri/rust-pathkit/commit/57a5a51))
+- Remove `release.toml` ([225d53d](https://github.com/kiki-kanri/rust-pathkit/commit/225d53d))
+- Automate release process with script ([f2c4b19](https://github.com/kiki-kanri/rust-pathkit/commit/f2c4b19))
+- Update release script to disallow any uncommitted files ([7da0de1](https://github.com/kiki-kanri/rust-pathkit/commit/7da0de1))
+
+#### ⚠️ Breaking Changes
+
+- ⚠️ Remove `mkdirs` method from `AsyncFsOps` ([30f8a89](https://github.com/kiki-kanri/rust-pathkit/commit/30f8a89))
+
+### ❤️ Contributors
+
+- kiki-kanri
+
 ## v0.3.0
 
 [compare changes](https://github.com/kiki-kanri/rust-pathkit/compare/v0.2.0...v0.3.0)
