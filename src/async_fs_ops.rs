@@ -1,4 +1,4 @@
-use anyhow::{bail, Result};
+use anyhow::Result;
 use std::fs::Permissions;
 use tokio::fs;
 
@@ -6,6 +6,7 @@ use super::core::Path;
 
 #[async_trait::async_trait]
 pub trait AsyncFsOps {
+    #[cfg(unix)]
     async fn chmod(&self, mode: u32) -> Result<()>;
     async fn exists(&self) -> Result<bool>;
     async fn mkdir(&self) -> Result<()>;
@@ -16,15 +17,10 @@ pub trait AsyncFsOps {
 
 #[async_trait::async_trait]
 impl AsyncFsOps for Path {
+    #[cfg(unix)]
     async fn chmod(&self, mode: u32) -> Result<()> {
-        #[cfg(unix)]
-        {
-            use std::os::unix::fs::PermissionsExt;
-            return Ok(fs::set_permissions(self, Permissions::from_mode(mode)).await?);
-        }
-
-        #[cfg(not(unix))]
-        return bail!("chmod is not supported on this platform");
+        use std::os::unix::fs::PermissionsExt;
+        return Ok(fs::set_permissions(self, Permissions::from_mode(mode)).await?);
     }
 
     async fn exists(&self) -> Result<bool> {
