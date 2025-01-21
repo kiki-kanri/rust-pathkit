@@ -1,11 +1,3 @@
 {
-  "version": "0.3.0",
-  "scripts": {
-    "bumplog": "changelogen --bump",
-    "release": "pnpm run test",
-    "test": "cargo test"
-  },
-  "devDependencies": {
-    "@kikiutils/changelogen": "^0.7.1"
-  }
+  "version": "0.3.0"
 }
