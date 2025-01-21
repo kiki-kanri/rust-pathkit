@@ -1,8 +1,8 @@
 #!/bin/bash
 
 set -e
-if git status --short ./CHANGELOG.md ./package.json | grep -q '^ M'; then
-    echo "Error: There are uncommitted changes in 'CHANGELOG.md' or 'package.json'."
+if ! git diff-index --quiet HEAD --; then
+    echo 'Error: There are uncommitted changes in your working directory.'
     echo 'Please commit or discard the changes before proceeding.'
     exit 1
 fi
