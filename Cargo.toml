@@ -5,7 +5,7 @@ edition = "2021"
 
 authors = ["kiki-kanri"]
 categories = ["filesystem"]
-description = "A comprehensive toolkit for path and filesystem operations in Rust."
+description = "Similar to the Path structure provided by python's pathlib, it provides various async/sync versions of file manipulation methods in addition to some of the std::Path built-in methods."
 keywords = ["filesystem", "path", "utils"]
 license = "MIT"
 readme = "README.md"
