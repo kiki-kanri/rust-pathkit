@@ -13,7 +13,6 @@ pub trait AsyncFsOps {
     async fn exists(&self) -> Result<bool>;
     async fn mkdir(&self) -> Result<()>;
     async fn mkdirp(&self) -> Result<()>;
-    async fn mkdirs(&self) -> Result<()>;
     async fn rmdir(&self) -> Result<()>;
     async fn set_permissions(&self, permissions: Permissions) -> Result<()>;
     async fn truncate(&self, len: Option<u64>) -> Result<()>;
@@ -45,10 +44,6 @@ impl AsyncFsOps for Path {
 
     async fn mkdirp(&self) -> Result<()> {
         return Ok(fs::create_dir_all(self).await?);
-    }
-
-    async fn mkdirs(&self) -> Result<()> {
-        return self.mkdirp().await;
     }
 
     async fn rmdir(&self) -> Result<()> {
