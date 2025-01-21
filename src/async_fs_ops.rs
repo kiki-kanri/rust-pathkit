@@ -1,6 +1,6 @@
 use anyhow::Result;
 use std::fs::Permissions;
-use tokio::fs;
+use tokio::fs::{self, OpenOptions};
 
 use super::core::Path;
 
@@ -14,7 +14,9 @@ pub trait AsyncFsOps {
     async fn mkdir(&self) -> Result<()>;
     async fn mkdirp(&self) -> Result<()>;
     async fn mkdirs(&self) -> Result<()>;
+    async fn rmdir(&self) -> Result<()>;
     async fn set_permissions(&self, permissions: Permissions) -> Result<()>;
+    async fn truncate(&self, len: Option<u64>) -> Result<()>;
 }
 
 #[async_trait::async_trait]
@@ -49,7 +51,20 @@ impl AsyncFsOps for Path {
         return self.mkdirp().await;
     }
 
+    async fn rmdir(&self) -> Result<()> {
+        return Ok(fs::remove_dir(self).await?);
+    }
+
     async fn set_permissions(&self, permissions: Permissions) -> Result<()> {
         return Ok(fs::set_permissions(self, permissions).await?);
+    }
+
+    async fn truncate(&self, len: Option<u64>) -> Result<()> {
+        return Ok(OpenOptions::new()
+            .write(true)
+            .open(self)
+            .await?
+            .set_len(len.unwrap_or(0))
+            .await?);
     }
 }
