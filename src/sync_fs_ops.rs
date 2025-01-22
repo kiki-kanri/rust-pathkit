@@ -8,7 +8,9 @@ pub trait SyncFsOps {
     fn chmod_sync(&self, mode: u32) -> Result<()>;
     #[cfg(unix)]
     fn chown_sync(&self, uid: Option<u32>, gid: Option<u32>) -> Result<()>;
+    fn empty_dir_sync(&self) -> Result<()>;
     fn exists_sync(&self) -> Result<bool>;
+    fn get_file_size_sync(&self) -> Result<u64>;
     #[cfg(unix)]
     fn is_block_device_sync(&self) -> Result<bool>;
     #[cfg(unix)]
@@ -40,8 +42,29 @@ impl SyncFsOps for Path {
         return Ok(std::os::unix::fs::chown(self, uid, gid)?);
     }
 
+    fn empty_dir_sync(&self) -> Result<()> {
+        if !self.exists_sync()? {
+            return self.mkdirp_sync();
+        }
+
+        for entry in fs::read_dir(self)? {
+            let entry_path = entry?.path();
+            if entry_path.is_dir() {
+                fs::remove_dir_all(entry_path)?;
+            } else {
+                fs::remove_file(entry_path)?;
+            }
+        }
+
+        return Ok(());
+    }
+
     fn exists_sync(&self) -> Result<bool> {
         return Ok(self.path.try_exists()?);
+    }
+
+    fn get_file_size_sync(&self) -> Result<u64> {
+        return Ok(self.metadata_sync()?.len());
     }
 
     #[cfg(unix)]

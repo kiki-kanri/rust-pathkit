@@ -11,7 +11,9 @@ pub trait AsyncFsOps {
     async fn chmod(&self, mode: u32) -> Result<()>;
     #[cfg(unix)]
     async fn chown(&self, uid: Option<u32>, gid: Option<u32>) -> Result<()>;
+    async fn empty_dir(&self) -> Result<()>;
     async fn exists(&self) -> Result<bool>;
+    async fn get_file_size(&self) -> Result<u64>;
     #[cfg(unix)]
     async fn is_block_device(&self) -> Result<bool>;
     #[cfg(unix)]
@@ -45,8 +47,30 @@ impl AsyncFsOps for Path {
         return Ok(spawn_blocking(move || std::os::unix::fs::chown(path, uid, gid)).await??);
     }
 
+    async fn empty_dir(&self) -> Result<()> {
+        if !self.exists().await? {
+            return self.mkdirp().await;
+        }
+
+        let mut entries = fs::read_dir(self).await?;
+        while let Some(entry) = entries.next_entry().await? {
+            let entry_path = entry.path();
+            if entry_path.is_dir() {
+                fs::remove_dir_all(entry_path).await?;
+            } else {
+                fs::remove_file(entry_path).await?;
+            }
+        }
+
+        return Ok(());
+    }
+
     async fn exists(&self) -> Result<bool> {
         return Ok(fs::try_exists(self).await?);
+    }
+
+    async fn get_file_size(&self) -> Result<u64> {
+        return Ok(self.metadata().await?.len());
     }
 
     #[cfg(unix)]
