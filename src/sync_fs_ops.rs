@@ -8,8 +8,8 @@ pub trait SyncFsOps {
     fn chmod_sync(&self, mode: u32) -> Result<()>;
     #[cfg(unix)]
     fn chown_sync(&self, uid: Option<u32>, gid: Option<u32>) -> Result<()>;
-    fn create_dir_sync(&self) -> Result<()>;
     fn create_dir_all_sync(&self) -> Result<()>;
+    fn create_dir_sync(&self) -> Result<()>;
     fn empty_dir_sync(&self) -> Result<()>;
     fn exists_sync(&self) -> Result<bool>;
     fn get_file_size_sync(&self) -> Result<u64>;
@@ -25,6 +25,7 @@ pub trait SyncFsOps {
     fn is_socket_sync(&self) -> Result<bool>;
     fn is_symlink_sync(&self) -> Result<bool>;
     fn metadata_sync(&self) -> Result<Metadata>;
+    fn remove_dir_all_sync(&self) -> Result<()>;
     fn remove_dir_sync(&self) -> Result<()>;
     fn set_permissions_sync(&self, permissions: Permissions) -> Result<()>;
     fn truncate_sync(&self, len: Option<u64>) -> Result<()>;
@@ -42,12 +43,12 @@ impl SyncFsOps for Path {
         return Ok(std::os::unix::fs::chown(self, uid, gid)?);
     }
 
-    fn create_dir_sync(&self) -> Result<()> {
-        return Ok(fs::create_dir(self)?);
-    }
-
     fn create_dir_all_sync(&self) -> Result<()> {
         return Ok(fs::create_dir_all(self)?);
+    }
+
+    fn create_dir_sync(&self) -> Result<()> {
+        return Ok(fs::create_dir(self)?);
     }
 
     fn empty_dir_sync(&self) -> Result<()> {
@@ -113,6 +114,10 @@ impl SyncFsOps for Path {
 
     fn metadata_sync(&self) -> Result<Metadata> {
         return Ok(fs::metadata(self)?);
+    }
+
+    fn remove_dir_all_sync(&self) -> Result<()> {
+        return Ok(fs::remove_dir_all(self)?);
     }
 
     fn remove_dir_sync(&self) -> Result<()> {

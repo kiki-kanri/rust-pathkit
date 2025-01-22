@@ -29,6 +29,7 @@ pub trait AsyncFsOps {
     async fn is_symlink(&self) -> Result<bool>;
     async fn metadata(&self) -> Result<Metadata>;
     async fn remove_dir(&self) -> Result<()>;
+    async fn remove_dir_all(&self) -> Result<()>;
     async fn set_permissions(&self, permissions: Permissions) -> Result<()>;
     async fn truncate(&self, len: Option<u64>) -> Result<()>;
 }
@@ -123,6 +124,10 @@ impl AsyncFsOps for Path {
 
     async fn remove_dir(&self) -> Result<()> {
         return Ok(fs::remove_dir(self).await?);
+    }
+
+    async fn remove_dir_all(&self) -> Result<()> {
+        return Ok(fs::remove_dir_all(self).await?);
     }
 
     async fn set_permissions(&self, permissions: Permissions) -> Result<()> {
