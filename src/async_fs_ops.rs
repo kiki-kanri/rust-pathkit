@@ -11,6 +11,8 @@ pub trait AsyncFsOps {
     async fn chmod(&self, mode: u32) -> Result<()>;
     #[cfg(unix)]
     async fn chown(&self, uid: Option<u32>, gid: Option<u32>) -> Result<()>;
+    async fn create_dir(&self) -> Result<()>;
+    async fn create_dir_all(&self) -> Result<()>;
     async fn empty_dir(&self) -> Result<()>;
     async fn exists(&self) -> Result<bool>;
     async fn get_file_size(&self) -> Result<u64>;
@@ -26,9 +28,7 @@ pub trait AsyncFsOps {
     async fn is_socket(&self) -> Result<bool>;
     async fn is_symlink(&self) -> Result<bool>;
     async fn metadata(&self) -> Result<Metadata>;
-    async fn mkdir(&self) -> Result<()>;
-    async fn mkdirp(&self) -> Result<()>;
-    async fn rmdir(&self) -> Result<()>;
+    async fn remove_dir(&self) -> Result<()>;
     async fn set_permissions(&self, permissions: Permissions) -> Result<()>;
     async fn truncate(&self, len: Option<u64>) -> Result<()>;
 }
@@ -47,9 +47,17 @@ impl AsyncFsOps for Path {
         return Ok(spawn_blocking(move || std::os::unix::fs::chown(path, uid, gid)).await??);
     }
 
+    async fn create_dir(&self) -> Result<()> {
+        return Ok(fs::create_dir(self).await?);
+    }
+
+    async fn create_dir_all(&self) -> Result<()> {
+        return Ok(fs::create_dir_all(self).await?);
+    }
+
     async fn empty_dir(&self) -> Result<()> {
         if !self.exists().await? {
-            return self.mkdirp().await;
+            return self.create_dir_all().await;
         }
 
         let mut entries = fs::read_dir(self).await?;
@@ -113,15 +121,7 @@ impl AsyncFsOps for Path {
         return Ok(fs::metadata(self).await?);
     }
 
-    async fn mkdir(&self) -> Result<()> {
-        return Ok(fs::create_dir(self).await?);
-    }
-
-    async fn mkdirp(&self) -> Result<()> {
-        return Ok(fs::create_dir_all(self).await?);
-    }
-
-    async fn rmdir(&self) -> Result<()> {
+    async fn remove_dir(&self) -> Result<()> {
         return Ok(fs::remove_dir(self).await?);
     }
 
