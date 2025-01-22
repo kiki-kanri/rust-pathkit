@@ -1,5 +1,5 @@
 use anyhow::Result;
-use std::fs::{self, OpenOptions, Permissions};
+use std::fs::{self, Metadata, OpenOptions, Permissions};
 
 use super::core::Path;
 
@@ -20,6 +20,7 @@ pub trait SyncFsOps {
     #[cfg(unix)]
     fn is_socket_sync(&self) -> Result<bool>;
     fn is_symlink_sync(&self) -> Result<bool>;
+    fn metadata_sync(&self) -> Result<Metadata>;
     fn mkdir_sync(&self) -> Result<()>;
     fn mkdirp_sync(&self) -> Result<()>;
     fn rmdir_sync(&self) -> Result<()>;
@@ -46,37 +47,41 @@ impl SyncFsOps for Path {
     #[cfg(unix)]
     fn is_block_device_sync(&self) -> Result<bool> {
         use std::os::unix::fs::FileTypeExt;
-        return Ok(fs::metadata(self)?.file_type().is_block_device());
+        return Ok(self.metadata_sync()?.file_type().is_block_device());
     }
 
     #[cfg(unix)]
     fn is_char_device_sync(&self) -> Result<bool> {
         use std::os::unix::fs::FileTypeExt;
-        return Ok(fs::metadata(self)?.file_type().is_char_device());
+        return Ok(self.metadata_sync()?.file_type().is_char_device());
     }
 
     fn is_dir_sync(&self) -> Result<bool> {
-        return Ok(fs::metadata(self)?.is_dir());
+        return Ok(self.metadata_sync()?.is_dir());
     }
 
     #[cfg(unix)]
     fn is_fifo_sync(&self) -> Result<bool> {
         use std::os::unix::fs::FileTypeExt;
-        return Ok(fs::metadata(self)?.file_type().is_fifo());
+        return Ok(self.metadata_sync()?.file_type().is_fifo());
     }
 
     fn is_file_sync(&self) -> Result<bool> {
-        return Ok(fs::metadata(self)?.is_file());
+        return Ok(self.metadata_sync()?.is_file());
     }
 
     #[cfg(unix)]
     fn is_socket_sync(&self) -> Result<bool> {
         use std::os::unix::fs::FileTypeExt;
-        return Ok(fs::metadata(self)?.file_type().is_socket());
+        return Ok(self.metadata_sync()?.file_type().is_socket());
     }
 
     fn is_symlink_sync(&self) -> Result<bool> {
         return Ok(fs::symlink_metadata(self)?.file_type().is_symlink());
+    }
+
+    fn metadata_sync(&self) -> Result<Metadata> {
+        return Ok(fs::metadata(self)?);
     }
 
     fn mkdir_sync(&self) -> Result<()> {

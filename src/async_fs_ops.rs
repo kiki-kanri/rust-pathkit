@@ -1,6 +1,7 @@
 use anyhow::Result;
-use std::fs::Permissions;
+use std::fs::{Metadata, Permissions};
 use tokio::fs::{self, OpenOptions};
+use tokio::task::spawn_blocking;
 
 use super::core::Path;
 
@@ -22,6 +23,7 @@ pub trait AsyncFsOps {
     #[cfg(unix)]
     async fn is_socket(&self) -> Result<bool>;
     async fn is_symlink(&self) -> Result<bool>;
+    async fn metadata(&self) -> Result<Metadata>;
     async fn mkdir(&self) -> Result<()>;
     async fn mkdirp(&self) -> Result<()>;
     async fn rmdir(&self) -> Result<()>;
@@ -40,9 +42,7 @@ impl AsyncFsOps for Path {
     #[cfg(unix)]
     async fn chown(&self, uid: Option<u32>, gid: Option<u32>) -> Result<()> {
         let path = self.path.clone();
-        return Ok(
-            tokio::task::spawn_blocking(move || std::os::unix::fs::chown(path, uid, gid)).await??,
-        );
+        return Ok(spawn_blocking(move || std::os::unix::fs::chown(path, uid, gid)).await??);
     }
 
     async fn exists(&self) -> Result<bool> {
@@ -52,37 +52,41 @@ impl AsyncFsOps for Path {
     #[cfg(unix)]
     async fn is_block_device(&self) -> Result<bool> {
         use std::os::unix::fs::FileTypeExt;
-        return Ok(fs::metadata(self).await?.file_type().is_block_device());
+        return Ok(self.metadata().await?.file_type().is_block_device());
     }
 
     #[cfg(unix)]
     async fn is_char_device(&self) -> Result<bool> {
         use std::os::unix::fs::FileTypeExt;
-        return Ok(fs::metadata(self).await?.file_type().is_char_device());
+        return Ok(self.metadata().await?.file_type().is_char_device());
     }
 
     async fn is_dir(&self) -> Result<bool> {
-        return Ok(fs::metadata(self).await?.is_dir());
+        return Ok(self.metadata().await?.is_dir());
     }
 
     #[cfg(unix)]
     async fn is_fifo(&self) -> Result<bool> {
         use std::os::unix::fs::FileTypeExt;
-        return Ok(fs::metadata(self).await?.file_type().is_fifo());
+        return Ok(self.metadata().await?.file_type().is_fifo());
     }
 
     async fn is_file(&self) -> Result<bool> {
-        return Ok(fs::metadata(self).await?.is_file());
+        return Ok(self.metadata().await?.is_file());
     }
 
     #[cfg(unix)]
     async fn is_socket(&self) -> Result<bool> {
         use std::os::unix::fs::FileTypeExt;
-        return Ok(fs::metadata(self).await?.file_type().is_socket());
+        return Ok(self.metadata().await?.file_type().is_socket());
     }
 
     async fn is_symlink(&self) -> Result<bool> {
         return Ok(fs::symlink_metadata(self).await?.file_type().is_symlink());
+    }
+
+    async fn metadata(&self) -> Result<Metadata> {
+        return Ok(fs::metadata(self).await?);
     }
 
     async fn mkdir(&self) -> Result<()> {
