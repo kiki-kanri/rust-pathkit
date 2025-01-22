@@ -1,5 +1,28 @@
 # Changelog
 
+## v0.5.0
+
+[compare changes](https://github.com/kiki-kanri/rust-pathkit/compare/v0.4.0...v0.5.0)
+
+### 🚀 Enhancements
+
+- Add `SyncFsOps` trait and impl ([84055c0](https://github.com/kiki-kanri/rust-pathkit/commit/84055c0))
+- Add `metadata` method to `FsOps` ([d5ee9a7](https://github.com/kiki-kanri/rust-pathkit/commit/d5ee9a7))
+- Add `empty_dir` and `get_file_size` methods to `FsOps` ([1a615d2](https://github.com/kiki-kanri/rust-pathkit/commit/1a615d2))
+- Add `remove_dir_all` method to `FsOps` ([ba87e22](https://github.com/kiki-kanri/rust-pathkit/commit/ba87e22))
+
+### 💅 Refactors
+
+- ⚠️ Rename methods in `FsOps` ([60395aa](https://github.com/kiki-kanri/rust-pathkit/commit/60395aa))
+
+#### ⚠️ Breaking Changes
+
+- ⚠️ Rename methods in `FsOps` ([60395aa](https://github.com/kiki-kanri/rust-pathkit/commit/60395aa))
+
+### ❤️ Contributors
+
+- kiki-kanri
+
 ## v0.4.0
 
 [compare changes](https://github.com/kiki-kanri/rust-pathkit/compare/v0.3.0...v0.4.0)
