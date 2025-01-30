@@ -25,6 +25,7 @@ pub trait SyncFsOps {
     fn is_socket_sync(&self) -> Result<bool>;
     fn is_symlink_sync(&self) -> Result<bool>;
     fn metadata_sync(&self) -> Result<Metadata>;
+    fn read_to_string(&self) -> Result<String>;
     fn remove_dir_all_sync(&self) -> Result<()>;
     fn remove_dir_sync(&self) -> Result<()>;
     fn set_permissions_sync(&self, permissions: Permissions) -> Result<()>;
@@ -114,6 +115,10 @@ impl SyncFsOps for Path {
 
     fn metadata_sync(&self) -> Result<Metadata> {
         return Ok(fs::metadata(self)?);
+    }
+
+    fn read_to_string(&self) -> Result<String> {
+        return Ok(fs::read_to_string(self)?);
     }
 
     fn remove_dir_all_sync(&self) -> Result<()> {

@@ -28,6 +28,7 @@ pub trait AsyncFsOps {
     async fn is_socket(&self) -> Result<bool>;
     async fn is_symlink(&self) -> Result<bool>;
     async fn metadata(&self) -> Result<Metadata>;
+    async fn read_to_string(&self) -> Result<String>;
     async fn remove_dir(&self) -> Result<()>;
     async fn remove_dir_all(&self) -> Result<()>;
     async fn set_permissions(&self, permissions: Permissions) -> Result<()>;
@@ -120,6 +121,10 @@ impl AsyncFsOps for Path {
 
     async fn metadata(&self) -> Result<Metadata> {
         return Ok(fs::metadata(self).await?);
+    }
+
+    async fn read_to_string(&self) -> Result<String> {
+        return Ok(fs::read_to_string(self).await?);
     }
 
     async fn remove_dir(&self) -> Result<()> {
