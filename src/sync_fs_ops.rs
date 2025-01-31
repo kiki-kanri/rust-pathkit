@@ -1,5 +1,5 @@
 use anyhow::Result;
-use std::fs::{self, Metadata, OpenOptions, Permissions};
+use std::fs::{self, Metadata, OpenOptions, Permissions, ReadDir};
 
 use super::core::Path;
 
@@ -25,6 +25,8 @@ pub trait SyncFsOps {
     fn is_socket_sync(&self) -> Result<bool>;
     fn is_symlink_sync(&self) -> Result<bool>;
     fn metadata_sync(&self) -> Result<Metadata>;
+    fn read(&self) -> Result<Vec<u8>>;
+    fn read_dir(&self) -> Result<ReadDir>;
     fn read_to_string(&self) -> Result<String>;
     fn remove_dir_all_sync(&self) -> Result<()>;
     fn remove_dir_sync(&self) -> Result<()>;
@@ -115,6 +117,14 @@ impl SyncFsOps for Path {
 
     fn metadata_sync(&self) -> Result<Metadata> {
         return Ok(fs::metadata(self)?);
+    }
+
+    fn read(&self) -> Result<Vec<u8>> {
+        return Ok(fs::read(self)?);
+    }
+
+    fn read_dir(&self) -> Result<ReadDir> {
+        return Ok(fs::read_dir(self)?);
     }
 
     fn read_to_string(&self) -> Result<String> {

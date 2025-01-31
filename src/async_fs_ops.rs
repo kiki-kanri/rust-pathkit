@@ -1,6 +1,6 @@
 use anyhow::Result;
 use std::fs::{Metadata, Permissions};
-use tokio::fs::{self, OpenOptions};
+use tokio::fs::{self, OpenOptions, ReadDir};
 use tokio::task::spawn_blocking;
 
 use super::core::Path;
@@ -28,6 +28,8 @@ pub trait AsyncFsOps {
     async fn is_socket(&self) -> Result<bool>;
     async fn is_symlink(&self) -> Result<bool>;
     async fn metadata(&self) -> Result<Metadata>;
+    async fn read(&self) -> Result<Vec<u8>>;
+    async fn read_dir(&self) -> Result<ReadDir>;
     async fn read_to_string(&self) -> Result<String>;
     async fn remove_dir(&self) -> Result<()>;
     async fn remove_dir_all(&self) -> Result<()>;
@@ -121,6 +123,14 @@ impl AsyncFsOps for Path {
 
     async fn metadata(&self) -> Result<Metadata> {
         return Ok(fs::metadata(self).await?);
+    }
+
+    async fn read(&self) -> Result<Vec<u8>> {
+        return Ok(fs::read(self).await?);
+    }
+
+    async fn read_dir(&self) -> Result<ReadDir> {
+        return Ok(fs::read_dir(self).await?);
     }
 
     async fn read_to_string(&self) -> Result<String> {
