@@ -35,6 +35,7 @@ pub trait AsyncFsOps {
     async fn remove_dir_all(&self) -> Result<()>;
     async fn set_permissions(&self, permissions: Permissions) -> Result<()>;
     async fn truncate(&self, len: Option<u64>) -> Result<()>;
+    async fn write(&self, contents: impl AsRef<[u8]> + Send) -> Result<()>;
 }
 
 #[async_trait::async_trait]
@@ -156,5 +157,9 @@ impl AsyncFsOps for Path {
             .await?
             .set_len(len.unwrap_or(0))
             .await?);
+    }
+
+    async fn write(&self, contents: impl AsRef<[u8]> + Send) -> Result<()> {
+        return Ok(fs::write(self, contents).await?);
     }
 }

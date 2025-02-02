@@ -32,6 +32,7 @@ pub trait SyncFsOps {
     fn remove_dir_sync(&self) -> Result<()>;
     fn set_permissions_sync(&self, permissions: Permissions) -> Result<()>;
     fn truncate_sync(&self, len: Option<u64>) -> Result<()>;
+    fn write_sync(&self, contents: impl AsRef<[u8]>) -> Result<()>;
 }
 
 impl SyncFsOps for Path {
@@ -148,5 +149,9 @@ impl SyncFsOps for Path {
             .write(true)
             .open(self)?
             .set_len(len.unwrap_or(0))?);
+    }
+
+    fn write_sync(&self, contents: impl AsRef<[u8]>) -> Result<()> {
+        return Ok(fs::write(self, contents)?);
     }
 }
