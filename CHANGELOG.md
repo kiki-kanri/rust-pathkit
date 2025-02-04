@@ -1,5 +1,31 @@
 # Changelog
 
+## v0.6.0
+
+[compare changes](https://github.com/kiki-kanri/rust-pathkit/compare/v0.5.0...v0.6.0)
+
+### 🚀 Enhancements
+
+- Add `read_to_string` method to `FsOps` ([1fff3d4](https://github.com/kiki-kanri/rust-pathkit/commit/1fff3d4))
+- Add `read` and `read_dir` methods to `FsOps` ([58988cf](https://github.com/kiki-kanri/rust-pathkit/commit/58988cf))
+- Add `write` method to `FsOps` ([d1cdf8c](https://github.com/kiki-kanri/rust-pathkit/commit/d1cdf8c))
+
+### 🏡 Chore
+
+- Upgrade dependencies ([cbaa8eb](https://github.com/kiki-kanri/rust-pathkit/commit/cbaa8eb))
+
+### ✅ Tests
+
+- Add unit tests for `core.rs` ([f4fb9d8](https://github.com/kiki-kanri/rust-pathkit/commit/f4fb9d8))
+- Add unit tests for `traits.rs` ([f060ede](https://github.com/kiki-kanri/rust-pathkit/commit/f060ede))
+- Change test functions name in `core.rs` ([78efe5b](https://github.com/kiki-kanri/rust-pathkit/commit/78efe5b))
+- Add unit tests for `div.rs` ([e85f96c](https://github.com/kiki-kanri/rust-pathkit/commit/e85f96c))
+- Add `Makefile.toml` and test-related commands ([facdaf7](https://github.com/kiki-kanri/rust-pathkit/commit/facdaf7))
+
+### ❤️ Contributors
+
+- kiki-kanri
+
 ## v0.5.0
 
 [compare changes](https://github.com/kiki-kanri/rust-pathkit/compare/v0.4.0...v0.5.0)
