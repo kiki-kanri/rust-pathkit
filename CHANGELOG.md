@@ -1,5 +1,25 @@
 # Changelog
 
+## v0.7.0
+
+[compare changes](https://github.com/kiki-kanri/rust-pathkit/compare/v0.6.0...v0.7.0)
+
+### 🚀 Enhancements
+
+- Add `read_json` and `write_json` methods to `FsOps` ([85f7504](https://github.com/kiki-kanri/rust-pathkit/commit/85f7504))
+
+### 🩹 Fixes
+
+- Ensure methods end with `_sync` in `SyncFsOps` ([cd34b00](https://github.com/kiki-kanri/rust-pathkit/commit/cd34b00))
+
+### ✅ Tests
+
+- Add initial `chmod` unit tests and dependencies ([ad0a617](https://github.com/kiki-kanri/rust-pathkit/commit/ad0a617))
+
+### ❤️ Contributors
+
+- kiki-kanri
+
 ## v0.6.0
 
 [compare changes](https://github.com/kiki-kanri/rust-pathkit/compare/v0.5.0...v0.6.0)
