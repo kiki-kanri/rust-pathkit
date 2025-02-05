@@ -1,6 +1,7 @@
 use anyhow::Result;
-use pathkit::Path;
 use std::ffi::OsStr;
+
+use pathkit::Path;
 
 #[test]
 fn new_instance() {
