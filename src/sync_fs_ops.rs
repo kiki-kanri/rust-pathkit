@@ -28,16 +28,16 @@ pub trait SyncFsOps {
     fn is_socket_sync(&self) -> Result<bool>;
     fn is_symlink_sync(&self) -> Result<bool>;
     fn metadata_sync(&self) -> Result<Metadata>;
-    fn read(&self) -> Result<Vec<u8>>;
-    fn read_dir(&self) -> Result<ReadDir>;
-    fn read_json<T: DeserializeOwned>(&self) -> Result<T>;
-    fn read_to_string(&self) -> Result<String>;
+    fn read_sync(&self) -> Result<Vec<u8>>;
+    fn read_dir_sync(&self) -> Result<ReadDir>;
+    fn read_json_sync<T: DeserializeOwned>(&self) -> Result<T>;
+    fn read_to_string_sync(&self) -> Result<String>;
     fn remove_dir_all_sync(&self) -> Result<()>;
     fn remove_dir_sync(&self) -> Result<()>;
     fn set_permissions_sync(&self, permissions: Permissions) -> Result<()>;
     fn truncate_sync(&self, len: Option<u64>) -> Result<()>;
     fn write_sync(&self, contents: impl AsRef<[u8]>) -> Result<()>;
-    fn write_json(&self, data: impl Serialize) -> Result<()>;
+    fn write_json_sync(&self, data: impl Serialize) -> Result<()>;
 }
 
 impl SyncFsOps for Path {
@@ -125,19 +125,19 @@ impl SyncFsOps for Path {
         return Ok(fs::metadata(self)?);
     }
 
-    fn read(&self) -> Result<Vec<u8>> {
+    fn read_sync(&self) -> Result<Vec<u8>> {
         return Ok(fs::read(self)?);
     }
 
-    fn read_dir(&self) -> Result<ReadDir> {
+    fn read_dir_sync(&self) -> Result<ReadDir> {
         return Ok(fs::read_dir(self)?);
     }
 
-    fn read_json<T: DeserializeOwned>(&self) -> Result<T> {
-        return Ok(from_slice::<T>(&self.read()?)?);
+    fn read_json_sync<T: DeserializeOwned>(&self) -> Result<T> {
+        return Ok(from_slice::<T>(&self.read_sync()?)?);
     }
 
-    fn read_to_string(&self) -> Result<String> {
+    fn read_to_string_sync(&self) -> Result<String> {
         return Ok(fs::read_to_string(self)?);
     }
 
@@ -164,7 +164,7 @@ impl SyncFsOps for Path {
         return Ok(fs::write(self, contents)?);
     }
 
-    fn write_json(&self, data: impl Serialize) -> Result<()> {
+    fn write_json_sync(&self, data: impl Serialize) -> Result<()> {
         return self.write_sync(to_vec_pretty(&data)?);
     }
 }
