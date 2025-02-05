@@ -1,4 +1,7 @@
 use anyhow::Result;
+use serde::de::DeserializeOwned;
+use serde::Serialize;
+use serde_json::{from_slice, to_vec_pretty};
 use std::fs::{self, Metadata, OpenOptions, Permissions, ReadDir};
 
 use super::core::Path;
@@ -27,12 +30,14 @@ pub trait SyncFsOps {
     fn metadata_sync(&self) -> Result<Metadata>;
     fn read(&self) -> Result<Vec<u8>>;
     fn read_dir(&self) -> Result<ReadDir>;
+    fn read_json<T: DeserializeOwned>(&self) -> Result<T>;
     fn read_to_string(&self) -> Result<String>;
     fn remove_dir_all_sync(&self) -> Result<()>;
     fn remove_dir_sync(&self) -> Result<()>;
     fn set_permissions_sync(&self, permissions: Permissions) -> Result<()>;
     fn truncate_sync(&self, len: Option<u64>) -> Result<()>;
     fn write_sync(&self, contents: impl AsRef<[u8]>) -> Result<()>;
+    fn write_json(&self, data: impl Serialize) -> Result<()>;
 }
 
 impl SyncFsOps for Path {
@@ -128,6 +133,10 @@ impl SyncFsOps for Path {
         return Ok(fs::read_dir(self)?);
     }
 
+    fn read_json<T: DeserializeOwned>(&self) -> Result<T> {
+        return Ok(from_slice::<T>(&self.read()?)?);
+    }
+
     fn read_to_string(&self) -> Result<String> {
         return Ok(fs::read_to_string(self)?);
     }
@@ -153,5 +162,9 @@ impl SyncFsOps for Path {
 
     fn write_sync(&self, contents: impl AsRef<[u8]>) -> Result<()> {
         return Ok(fs::write(self, contents)?);
+    }
+
+    fn write_json(&self, data: impl Serialize) -> Result<()> {
+        return self.write_sync(to_vec_pretty(&data)?);
     }
 }

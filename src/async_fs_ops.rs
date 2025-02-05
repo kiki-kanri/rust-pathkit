@@ -1,4 +1,7 @@
 use anyhow::Result;
+use serde::de::DeserializeOwned;
+use serde::Serialize;
+use serde_json::{from_slice, to_vec_pretty};
 use std::fs::{Metadata, Permissions};
 use tokio::fs::{self, OpenOptions, ReadDir};
 use tokio::task::spawn_blocking;
@@ -30,12 +33,14 @@ pub trait AsyncFsOps {
     async fn metadata(&self) -> Result<Metadata>;
     async fn read(&self) -> Result<Vec<u8>>;
     async fn read_dir(&self) -> Result<ReadDir>;
+    async fn read_json<T: DeserializeOwned>(&self) -> Result<T>;
     async fn read_to_string(&self) -> Result<String>;
     async fn remove_dir(&self) -> Result<()>;
     async fn remove_dir_all(&self) -> Result<()>;
     async fn set_permissions(&self, permissions: Permissions) -> Result<()>;
     async fn truncate(&self, len: Option<u64>) -> Result<()>;
     async fn write(&self, contents: impl AsRef<[u8]> + Send) -> Result<()>;
+    async fn write_json(&self, data: impl Serialize + Send) -> Result<()>;
 }
 
 #[async_trait::async_trait]
@@ -134,6 +139,10 @@ impl AsyncFsOps for Path {
         return Ok(fs::read_dir(self).await?);
     }
 
+    async fn read_json<T: DeserializeOwned>(&self) -> Result<T> {
+        return Ok(from_slice::<T>(&self.read().await?)?);
+    }
+
     async fn read_to_string(&self) -> Result<String> {
         return Ok(fs::read_to_string(self).await?);
     }
@@ -161,5 +170,9 @@ impl AsyncFsOps for Path {
 
     async fn write(&self, contents: impl AsRef<[u8]> + Send) -> Result<()> {
         return Ok(fs::write(self, contents).await?);
+    }
+
+    async fn write_json(&self, data: impl Serialize + Send) -> Result<()> {
+        return self.write(to_vec_pretty(&data)?).await;
     }
 }
