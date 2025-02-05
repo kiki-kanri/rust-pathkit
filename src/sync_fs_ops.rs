@@ -1,6 +1,5 @@
 use anyhow::Result;
-use serde::de::DeserializeOwned;
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 use serde_json::{from_slice, to_vec_pretty};
 use std::fs::{self, Metadata, OpenOptions, Permissions, ReadDir};
 
@@ -30,7 +29,7 @@ pub trait SyncFsOps {
     fn metadata_sync(&self) -> Result<Metadata>;
     fn read_sync(&self) -> Result<Vec<u8>>;
     fn read_dir_sync(&self) -> Result<ReadDir>;
-    fn read_json_sync<T: DeserializeOwned>(&self) -> Result<T>;
+    fn read_json_sync<T: for<'de> Deserialize<'de>>(&self) -> Result<T>;
     fn read_to_string_sync(&self) -> Result<String>;
     fn remove_dir_all_sync(&self) -> Result<()>;
     fn remove_dir_sync(&self) -> Result<()>;
@@ -133,7 +132,7 @@ impl SyncFsOps for Path {
         return Ok(fs::read_dir(self)?);
     }
 
-    fn read_json_sync<T: DeserializeOwned>(&self) -> Result<T> {
+    fn read_json_sync<T: for<'de> Deserialize<'de>>(&self) -> Result<T> {
         return Ok(from_slice::<T>(&self.read_sync()?)?);
     }
 

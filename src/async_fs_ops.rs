@@ -1,6 +1,5 @@
 use anyhow::Result;
-use serde::de::DeserializeOwned;
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 use serde_json::{from_slice, to_vec_pretty};
 use std::fs::{Metadata, Permissions};
 use tokio::fs::{self, OpenOptions, ReadDir};
@@ -33,7 +32,7 @@ pub trait AsyncFsOps {
     async fn metadata(&self) -> Result<Metadata>;
     async fn read(&self) -> Result<Vec<u8>>;
     async fn read_dir(&self) -> Result<ReadDir>;
-    async fn read_json<T: DeserializeOwned>(&self) -> Result<T>;
+    async fn read_json<T: for<'de> Deserialize<'de>>(&self) -> Result<T>;
     async fn read_to_string(&self) -> Result<String>;
     async fn remove_dir(&self) -> Result<()>;
     async fn remove_dir_all(&self) -> Result<()>;
@@ -139,7 +138,7 @@ impl AsyncFsOps for Path {
         return Ok(fs::read_dir(self).await?);
     }
 
-    async fn read_json<T: DeserializeOwned>(&self) -> Result<T> {
+    async fn read_json<T: for<'de> Deserialize<'de>>(&self) -> Result<T> {
         return Ok(from_slice::<T>(&self.read().await?)?);
     }
 
