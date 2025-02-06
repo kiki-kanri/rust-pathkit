@@ -1,5 +1,0 @@
-.gitignore
-.vscode/
-Makefile.toml
-package.json
-release.sh
