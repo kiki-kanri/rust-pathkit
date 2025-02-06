@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.7.1
+
+[compare changes](https://github.com/kiki-kanri/rust-pathkit/compare/v0.7.0...v0.7.1)
+
+### 💅 Refactors
+
+- Change `read_json` generic parameter T type to `for<'de> Deserialize<'de>` ([d6d0af7](https://github.com/kiki-kanri/rust-pathkit/commit/d6d0af7))
+
+### 🏡 Chore
+
+- Add ignore for cargo publish ([52e1e6f](https://github.com/kiki-kanri/rust-pathkit/commit/52e1e6f))
+
+### ❤️ Contributors
+
+- kiki-kanri
+
 ## v0.7.0
 
 [compare changes](https://github.com/kiki-kanri/rust-pathkit/compare/v0.6.0...v0.7.0)
