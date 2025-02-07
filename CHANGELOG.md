@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.8.0
+
+[compare changes](https://github.com/kiki-kanri/rust-pathkit/compare/v0.7.1...v0.8.0)
+
+### 🚀 Enhancements
+
+- Extend div operator overloading to support more concatenation types ([7129469](https://github.com/kiki-kanri/rust-pathkit/commit/7129469))
+
+### 🩹 Fixes
+
+- **Cargo.toml:** Correctly configure exclude field for files not to be uploaded ([9eaad83](https://github.com/kiki-kanri/rust-pathkit/commit/9eaad83))
+
+### ❤️ Contributors
+
+- kiki-kanri
+
 ## v0.7.1
 
 [compare changes](https://github.com/kiki-kanri/rust-pathkit/compare/v0.7.0...v0.7.1)
