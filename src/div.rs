@@ -22,7 +22,7 @@ impl Div<Path> for &Path {
     type Output = Path;
 
     fn div(self, rhs: Path) -> Self::Output {
-        return self.join(rhs);
+        return self.join(&rhs);
     }
 }
 
@@ -30,7 +30,7 @@ impl Div<Path> for Path {
     type Output = Path;
 
     fn div(self, rhs: Path) -> Self::Output {
-        return self.join(rhs);
+        return self.join(&rhs);
     }
 }
 
