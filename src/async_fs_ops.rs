@@ -68,7 +68,7 @@ impl AsyncFsOps for Path {
 
     #[cfg(unix)]
     async fn chown(&self, uid: Option<u32>, gid: Option<u32>) -> Result<()> {
-        let path = self.path.clone();
+        let path = self.clone();
         Ok(spawn_blocking(move || std::os::unix::fs::chown(path, uid, gid)).await??)
     }
 

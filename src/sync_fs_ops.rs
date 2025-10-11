@@ -90,7 +90,7 @@ impl SyncFsOps for Path {
     }
 
     fn exists_sync(&self) -> Result<bool> {
-        Ok(self.path.try_exists()?)
+        Ok(self.try_exists()?)
     }
 
     fn get_file_size_sync(&self) -> Result<u64> {
