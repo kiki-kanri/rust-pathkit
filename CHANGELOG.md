@@ -1,5 +1,51 @@
 # Changelog
 
+## v0.8.1
+
+[compare changes](https://github.com/kiki-kanri/rust-pathkit/compare/v0.8.0...v0.8.1)
+
+### 🚀 Enhancements
+
+- Change `Path` struct to tuple, and add more derive and traits, add `to_path_buf` method ([f03a498](https://github.com/kiki-kanri/rust-pathkit/commit/f03a498))
+- Add `with_extension` method and remove redundant methods identical to underlying implementation, use deref for direct calls ([4d1eff7](https://github.com/kiki-kanri/rust-pathkit/commit/4d1eff7))
+
+### 🔥 Performance
+
+- Minimize `tokio` features ([c90f8e4](https://github.com/kiki-kanri/rust-pathkit/commit/c90f8e4))
+
+### 🩹 Fixes
+
+- Resolve ownership consumption issue in div operation ([fccd844](https://github.com/kiki-kanri/rust-pathkit/commit/fccd844))
+
+### 💅 Refactors
+
+- Replace some `Path` impls with `derive` ([02ed791](https://github.com/kiki-kanri/rust-pathkit/commit/02ed791))
+
+### 🏡 Chore
+
+- Upgrade dependencies ([60a214d](https://github.com/kiki-kanri/rust-pathkit/commit/60a214d))
+- Upgrade dependencies ([0876246](https://github.com/kiki-kanri/rust-pathkit/commit/0876246))
+- Update `.gitignore` and `modify-files-permissions.sh` ([ad5c35f](https://github.com/kiki-kanri/rust-pathkit/commit/ad5c35f))
+- Update scripts ([64d1874](https://github.com/kiki-kanri/rust-pathkit/commit/64d1874))
+- Update vscode setting ([679cf39](https://github.com/kiki-kanri/rust-pathkit/commit/679cf39))
+- Add cargo alias config ([23ef3d6](https://github.com/kiki-kanri/rust-pathkit/commit/23ef3d6))
+- Upgrade dependencies ([36c663b](https://github.com/kiki-kanri/rust-pathkit/commit/36c663b))
+- Remove makefile ([8412ad6](https://github.com/kiki-kanri/rust-pathkit/commit/8412ad6))
+- Add `.editorconfig` ([75290f7](https://github.com/kiki-kanri/rust-pathkit/commit/75290f7))
+- Update release script ([8c85f4f](https://github.com/kiki-kanri/rust-pathkit/commit/8c85f4f))
+- Update scripts ([0982503](https://github.com/kiki-kanri/rust-pathkit/commit/0982503))
+- Lint code ([1574193](https://github.com/kiki-kanri/rust-pathkit/commit/1574193))
+- Replace exclude with include from Cargo.toml ([c7e536a](https://github.com/kiki-kanri/rust-pathkit/commit/c7e536a))
+- Lint code ([8bffd72](https://github.com/kiki-kanri/rust-pathkit/commit/8bffd72))
+
+### 🎨 Styles
+
+- Add rustfmt config and format all code ([2c74d28](https://github.com/kiki-kanri/rust-pathkit/commit/2c74d28))
+
+### ❤️ Contributors
+
+- Kiki-kanri
+
 ## v0.8.0
 
 [compare changes](https://github.com/kiki-kanri/rust-pathkit/compare/v0.7.1...v0.8.0)
