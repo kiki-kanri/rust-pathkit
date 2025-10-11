@@ -6,13 +6,11 @@ edition = "2021"
 authors = ["kiki-kanri"]
 categories = ["filesystem"]
 description = "Similar to the Path structure provided by python's pathlib, it provides various async/sync versions of file manipulation methods in addition to some of the std::Path built-in methods."
-exclude = [
-    ".gitignore",
-    ".vscode/",
-    "Makefile.toml",
-    "modify-files-permissions.sh",
-    "package.json",
-    "release.sh",
+include = [
+  "src/**",
+  "Cargo.toml",
+  "LICENSE*",
+  "README.md",
 ]
 
 keywords = ["filesystem", "path", "utils"]
@@ -20,6 +18,7 @@ license = "MIT"
 readme = "README.md"
 repository = "https://github.com/kiki-kanri/rust-pathkit"
 
+# Dependencies
 [dependencies]
 anyhow = "1.0.100"
 async-trait = "0.1.89"
@@ -31,6 +30,7 @@ tokio = { version = "1.47.1", features = ["full"] }
 [dev-dependencies]
 tempfile = "3.23.0"
 
+# Features
 [features]
 all = []
 full = ["all"]
