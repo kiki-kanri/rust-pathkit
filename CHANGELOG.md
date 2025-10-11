@@ -1,5 +1,25 @@
 # Changelog
 
+## v0.8.2
+
+[compare changes](https://github.com/kiki-kanri/rust-pathkit/compare/v0.8.1...v0.8.2)
+
+### 🩹 Fixes
+
+- Prevent `spawn_blocking` from being imported on non-Unix platforms ([c2349e5](https://github.com/kiki-kanri/rust-pathkit/commit/c2349e5))
+
+### 🏡 Chore
+
+- Minimize `tokio` features in dev-dependencies ([6140780](https://github.com/kiki-kanri/rust-pathkit/commit/6140780))
+
+### 🤖 CI
+
+- Add test on release and upload codecov workflow ([1c677b9](https://github.com/kiki-kanri/rust-pathkit/commit/1c677b9))
+
+### ❤️ Contributors
+
+- Kiki-kanri
+
 ## v0.8.1
 
 [compare changes](https://github.com/kiki-kanri/rust-pathkit/compare/v0.8.0...v0.8.1)
