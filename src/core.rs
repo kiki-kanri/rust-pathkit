@@ -1,6 +1,6 @@
 use std::{
-    borrow::Cow,
     ffi::OsStr,
+    fs::canonicalize,
     path::{
         Path as StdPath,
         PathBuf,
@@ -33,24 +33,12 @@ impl Path {
         Ok(Self::new(self.0.absolutize_virtually(virtual_root)?))
     }
 
+    pub fn as_path(&self) -> &StdPath {
+        &self.0
+    }
+
     pub fn canonicalize(&self) -> Result<Self, std::io::Error> {
-        std::fs::canonicalize(&self.0).map(Self::new)
-    }
-
-    pub fn extension(&self) -> Option<&OsStr> {
-        self.0.extension()
-    }
-
-    pub fn file_name(&self) -> Option<&OsStr> {
-        self.0.file_name()
-    }
-
-    pub fn file_stem(&self) -> Option<&OsStr> {
-        self.0.file_stem()
-    }
-
-    pub fn is_absolute(&self) -> bool {
-        self.0.is_absolute()
+        canonicalize(&self.0).map(Self::new)
     }
 
     pub fn join(&self, path: impl AsRef<StdPath>) -> Self {
@@ -65,11 +53,7 @@ impl Path {
         self.0.clone()
     }
 
-    pub fn to_str(&self) -> Option<&str> {
-        self.0.to_str()
-    }
-
-    pub fn to_string_lossy(&self) -> Cow<'_, str> {
-        self.0.to_string_lossy()
+    pub fn with_extension<S: AsRef<OsStr>>(&self, extension: S) -> Self {
+        Self::new(self.0.with_extension(extension))
     }
 }
