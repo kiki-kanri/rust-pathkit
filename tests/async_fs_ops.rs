@@ -1,8 +1,10 @@
 use anyhow::Result;
+use pathkit::{
+    AsyncFsOps,
+    Path,
+};
 use tempfile::NamedTempFile;
 use tokio::fs;
-
-use pathkit::{AsyncFsOps, Path};
 
 #[cfg(unix)]
 #[tokio::test]

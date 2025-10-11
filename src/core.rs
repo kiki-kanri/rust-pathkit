@@ -1,8 +1,14 @@
+use std::{
+    borrow::Cow,
+    ffi::OsStr,
+    path::{
+        Path as StdPath,
+        PathBuf,
+    },
+};
+
 use anyhow::Result;
 use path_absolutize::Absolutize;
-use std::borrow::Cow;
-use std::ffi::OsStr;
-use std::path::{Path as StdPath, PathBuf};
 
 #[derive(Debug)]
 pub struct Path {

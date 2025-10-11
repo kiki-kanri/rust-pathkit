@@ -1,6 +1,6 @@
-use anyhow::Result;
 use std::ffi::OsStr;
 
+use anyhow::Result;
 use pathkit::Path;
 
 #[test]
@@ -19,10 +19,7 @@ fn absolutize() -> Result<()> {
 #[test]
 fn absolutize_from() -> Result<()> {
     let path = Path::new("subdir");
-    assert_eq!(
-        path.absolutize_from("/base")?.to_str(),
-        Some("/base/subdir")
-    );
+    assert_eq!(path.absolutize_from("/base")?.to_str(), Some("/base/subdir"));
 
     return Ok(());
 }

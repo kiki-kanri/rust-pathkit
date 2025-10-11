@@ -1,5 +1,10 @@
-use std::fmt::{Display, Formatter};
-use std::path::Path as StdPath;
+use std::{
+    fmt::{
+        Display,
+        Formatter,
+    },
+    path::Path as StdPath,
+};
 
 use super::core::Path;
 

@@ -1,7 +1,20 @@
+use std::fs::{
+    self,
+    Metadata,
+    OpenOptions,
+    Permissions,
+    ReadDir,
+};
+
 use anyhow::Result;
-use serde::{Deserialize, Serialize};
-use serde_json::{from_slice, to_vec_pretty};
-use std::fs::{self, Metadata, OpenOptions, Permissions, ReadDir};
+use serde::{
+    Deserialize,
+    Serialize,
+};
+use serde_json::{
+    from_slice,
+    to_vec_pretty,
+};
 
 use super::core::Path;
 
@@ -153,10 +166,7 @@ impl SyncFsOps for Path {
     }
 
     fn truncate_sync(&self, len: Option<u64>) -> Result<()> {
-        return Ok(OpenOptions::new()
-            .write(true)
-            .open(self)?
-            .set_len(len.unwrap_or(0))?);
+        return Ok(OpenOptions::new().write(true).open(self)?.set_len(len.unwrap_or(0))?);
     }
 
     fn write_sync(&self, contents: impl AsRef<[u8]>) -> Result<()> {
