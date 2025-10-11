@@ -13,7 +13,7 @@ fn new_instance() {
 fn absolutize() -> Result<()> {
     let path = Path::new(".");
     assert!(path.absolutize()?.is_absolute());
-    return Ok(());
+    Ok(())
 }
 
 #[test]
@@ -21,7 +21,7 @@ fn absolutize_from() -> Result<()> {
     let path = Path::new("subdir");
     assert_eq!(path.absolutize_from("/base")?.to_str(), Some("/base/subdir"));
 
-    return Ok(());
+    Ok(())
 }
 
 #[test]
@@ -32,14 +32,14 @@ fn absolutize_virtually() -> Result<()> {
         Some("/virtual/subdir/file.txt")
     );
 
-    return Ok(());
+    Ok(())
 }
 
 #[test]
 fn canonicalize() -> Result<()> {
     let path = Path::new(".");
     assert!(path.canonicalize()?.is_absolute());
-    return Ok(());
+    Ok(())
 }
 
 #[test]

@@ -19,5 +19,5 @@ fn chmod_sync() -> Result<()> {
     file_path.chmod_sync(0o700)?;
     assert_eq!(fs::metadata(file_path.clone())?.permissions().mode() & 0o777, 0o700);
 
-    return Ok(());
+    Ok(())
 }
