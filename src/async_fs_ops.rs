@@ -12,13 +12,10 @@ use serde_json::{
     from_slice,
     to_vec_pretty,
 };
-use tokio::{
-    fs::{
-        self,
-        OpenOptions,
-        ReadDir,
-    },
-    task::spawn_blocking,
+use tokio::fs::{
+    self,
+    OpenOptions,
+    ReadDir,
 };
 
 use super::core::Path;
@@ -63,11 +60,14 @@ impl AsyncFsOps for Path {
     #[cfg(unix)]
     async fn chmod(&self, mode: u32) -> Result<()> {
         use std::os::unix::fs::PermissionsExt;
+
         Ok(fs::set_permissions(self, Permissions::from_mode(mode)).await?)
     }
 
     #[cfg(unix)]
     async fn chown(&self, uid: Option<u32>, gid: Option<u32>) -> Result<()> {
+        use tokio::task::spawn_blocking;
+
         let path = self.clone();
         Ok(spawn_blocking(move || std::os::unix::fs::chown(path, uid, gid)).await??)
     }
@@ -109,12 +109,14 @@ impl AsyncFsOps for Path {
     #[cfg(unix)]
     async fn is_block_device(&self) -> Result<bool> {
         use std::os::unix::fs::FileTypeExt;
+
         Ok(self.metadata().await?.file_type().is_block_device())
     }
 
     #[cfg(unix)]
     async fn is_char_device(&self) -> Result<bool> {
         use std::os::unix::fs::FileTypeExt;
+
         Ok(self.metadata().await?.file_type().is_char_device())
     }
 
@@ -125,6 +127,7 @@ impl AsyncFsOps for Path {
     #[cfg(unix)]
     async fn is_fifo(&self) -> Result<bool> {
         use std::os::unix::fs::FileTypeExt;
+
         Ok(self.metadata().await?.file_type().is_fifo())
     }
 
@@ -135,6 +138,7 @@ impl AsyncFsOps for Path {
     #[cfg(unix)]
     async fn is_socket(&self) -> Result<bool> {
         use std::os::unix::fs::FileTypeExt;
+
         Ok(self.metadata().await?.file_type().is_socket())
     }
 

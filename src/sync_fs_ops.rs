@@ -56,6 +56,7 @@ impl SyncFsOps for Path {
     #[cfg(unix)]
     fn chmod_sync(&self, mode: u32) -> Result<()> {
         use std::os::unix::fs::PermissionsExt;
+
         Ok(fs::set_permissions(self, Permissions::from_mode(mode))?)
     }
 
@@ -100,12 +101,14 @@ impl SyncFsOps for Path {
     #[cfg(unix)]
     fn is_block_device_sync(&self) -> Result<bool> {
         use std::os::unix::fs::FileTypeExt;
+
         Ok(self.metadata_sync()?.file_type().is_block_device())
     }
 
     #[cfg(unix)]
     fn is_char_device_sync(&self) -> Result<bool> {
         use std::os::unix::fs::FileTypeExt;
+
         Ok(self.metadata_sync()?.file_type().is_char_device())
     }
 
@@ -116,6 +119,7 @@ impl SyncFsOps for Path {
     #[cfg(unix)]
     fn is_fifo_sync(&self) -> Result<bool> {
         use std::os::unix::fs::FileTypeExt;
+
         Ok(self.metadata_sync()?.file_type().is_fifo())
     }
 
@@ -126,6 +130,7 @@ impl SyncFsOps for Path {
     #[cfg(unix)]
     fn is_socket_sync(&self) -> Result<bool> {
         use std::os::unix::fs::FileTypeExt;
+
         Ok(self.metadata_sync()?.file_type().is_socket())
     }
 
