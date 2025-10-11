@@ -10,7 +10,7 @@ use std::{
 use anyhow::Result;
 use path_absolutize::Absolutize;
 
-#[derive(Debug)]
+#[derive(Clone, Debug, Eq, PartialEq)]
 pub struct Path {
     pub(super) path: PathBuf,
 }

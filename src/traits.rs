@@ -2,6 +2,7 @@ use std::{
     fmt::{
         Display,
         Formatter,
+        Result as FmtResult,
     },
     path::Path as StdPath,
 };
@@ -14,23 +15,8 @@ impl AsRef<StdPath> for Path {
     }
 }
 
-impl Clone for Path {
-    fn clone(&self) -> Self {
-        Path {
-            path: self.path.clone(),
-        }
-    }
-}
-
 impl Display for Path {
-    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+    fn fmt(&self, f: &mut Formatter<'_>) -> FmtResult {
         write!(f, "{}", self.to_string_lossy())
-    }
-}
-
-impl Eq for Path {}
-impl PartialEq for Path {
-    fn eq(&self, other: &Self) -> bool {
-        self.path == other.path
     }
 }
