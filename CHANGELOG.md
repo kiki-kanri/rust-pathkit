@@ -1,5 +1,22 @@
 # Changelog
 
+## v0.9.0
+
+[compare changes](https://github.com/kiki-kanri/rust-pathkit/compare/v0.8.2...v0.9.0)
+
+### 💅 Refactors
+
+- Inline some generic type constraints instead of defining them in `where` clauses ([37643ad](https://github.com/kiki-kanri/rust-pathkit/commit/37643ad))
+- ⚠️  Make `AsyncFsOps` enabled via feature flag ([122928d](https://github.com/kiki-kanri/rust-pathkit/commit/122928d))
+
+#### ⚠️ Breaking Changes
+
+- ⚠️  Make `AsyncFsOps` enabled via feature flag ([122928d](https://github.com/kiki-kanri/rust-pathkit/commit/122928d))
+
+### ❤️ Contributors
+
+- Kiki-kanri
+
 ## v0.8.2
 
 [compare changes](https://github.com/kiki-kanri/rust-pathkit/compare/v0.8.1...v0.8.2)
