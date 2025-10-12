@@ -21,11 +21,11 @@ repository = "https://github.com/kiki-kanri/rust-pathkit"
 # Dependencies
 [dependencies]
 anyhow = "1.0.100"
-async-trait = "0.1.89"
+async-trait = { version = "0.1.89", optional = true }
 path-absolutize = "3.1.1"
 serde = { version = "1.0.228", features = ["derive"] }
 serde_json = "1.0.145"
-tokio = { version = "1.47.1", features = ["fs", "rt"] }
+tokio = { version = "1.47.1", features = ["fs", "rt"], optional = true }
 
 [dev-dependencies]
 tempfile = "3.23.0"
@@ -33,5 +33,7 @@ tokio = { version = "1.47.1", features = ["macros"] }
 
 # Features
 [features]
-all = []
+async-fs-ops = ["async-trait", "tokio"]
+
+all = ["async-fs-ops"]
 full = ["all"]
