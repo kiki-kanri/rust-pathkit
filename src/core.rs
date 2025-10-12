@@ -14,10 +14,7 @@ use path_absolutize::Absolutize;
 pub struct Path(pub(crate) PathBuf);
 
 impl Path {
-    pub fn new<P>(path: P) -> Self
-    where
-        P: Into<PathBuf>,
-    {
+    pub fn new<P: Into<PathBuf>>(path: P) -> Self {
         Self(path.into())
     }
 
