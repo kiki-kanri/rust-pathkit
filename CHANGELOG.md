@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.9.1
+
+[compare changes](https://github.com/kiki-kanri/rust-pathkit/compare/v0.9.0...v0.9.1)
+
+### 🏡 Chore
+
+- Upgrade dependencies ([512b552](https://github.com/kiki-kanri/rust-pathkit/commit/512b552))
+- Unify feature definitions by using `dep:` prefix for all dependencies ([e22a416](https://github.com/kiki-kanri/rust-pathkit/commit/e22a416))
+
+### ❤️ Contributors
+
+- Kiki-kanri
+
 ## v0.9.0
 
 [compare changes](https://github.com/kiki-kanri/rust-pathkit/compare/v0.8.2...v0.9.0)

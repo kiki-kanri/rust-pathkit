@@ -1,6 +1,6 @@
 [package]
 name = "pathkit"
-version = "0.9.0"
+version = "0.9.1"
 edition = "2021"
 
 authors = ["kiki-kanri"]
