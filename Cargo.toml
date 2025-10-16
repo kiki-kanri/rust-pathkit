@@ -33,7 +33,7 @@ tokio = { version = "1.47.1", features = ["macros"] }
 
 # Features
 [features]
-async-fs-ops = ["async-trait", "tokio"]
+async-fs-ops = ["dep:async-trait", "dep:tokio"]
 
 all = ["async-fs-ops"]
 full = ["all"]
