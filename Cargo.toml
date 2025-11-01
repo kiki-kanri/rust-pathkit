@@ -1,6 +1,6 @@
 [package]
 name = "pathkit"
-version = "0.9.1"
+version = "0.9.2"
 
 authors = ["kiki-kanri"]
 categories = ["filesystem"]

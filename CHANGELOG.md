@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.9.2
+
+[compare changes](https://github.com/kiki-kanri/rs-pathkit/compare/v0.9.1...v0.9.2)
+
+### 🏡 Chore
+
+- Change repo url ([e04feb8](https://github.com/kiki-kanri/rs-pathkit/commit/e04feb8))
+- Update Cargo.toml ([50b1056](https://github.com/kiki-kanri/rs-pathkit/commit/50b1056))
+
+### ❤️ Contributors
+
+- Kiki-kanri
+
 ## v0.9.1
 
 [compare changes](https://github.com/kiki-kanri/rs-pathkit/compare/v0.9.0...v0.9.1)
