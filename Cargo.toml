@@ -20,7 +20,7 @@ keywords = [
 
 license = "MIT"
 readme = "README.md"
-repository = "https://github.com/kiki-kanri/rust-pathkit"
+repository = "https://github.com/kiki-kanri/rs-pathkit"
 
 # Dependencies
 [dependencies]
