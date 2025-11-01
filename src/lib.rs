@@ -5,8 +5,9 @@ mod div;
 mod sync_fs_ops;
 mod traits;
 
-pub use core::Path;
-
 #[cfg(feature = "async-fs-ops")]
-pub use async_fs_ops::AsyncFsOps;
-pub use sync_fs_ops::SyncFsOps;
+pub use crate::async_fs_ops::AsyncFsOps;
+pub use crate::{
+    core::Path,
+    sync_fs_ops::SyncFsOps,
+};
